@@ -1,0 +1,7 @@
+d /root/shell/
+#x=$(diff -r dir1 dir2 | grep dir1)
+x=$(comm -23 <(ls dir1 | sort) <(ls dir2 | sort))
+cp /root/shell/dir1/$x /root/shell/dir2/
+echo  $x >> /ajay
+scp /ajay root@192.168.0.86:/
+ssh -tt 192.168.0.86 sh ajay.sh
