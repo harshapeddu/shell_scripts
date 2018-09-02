@@ -1,0 +1,9 @@
+#!/bin/bash
+
+file="/ajay" #the file where you keep your string name
+
+export name=$(cat "$file")        #the output of 'cat $file' is assigned to the $name variable
+
+echo $name               #test
+sh docker.sh "$name"
+#sh test.sh "$name"
