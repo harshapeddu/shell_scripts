@@ -1,0 +1,24 @@
+#declareing credential
+#d=58d5f343-1a75-463e-94e4-62fc5d8b955d
+
+#b="branch1"
+sed -i "s/master/$b/g" /root/docker/config.xml
+
+#Run docker jenkins base image
+docker run -d -P localhost:5000/jenkins_base2
+
+#Printing docker container
+export c=($(docker ps))
+echo "${c[8]}"
+export x="${c[8]}"
+
+sleep 5
+
+#Copying Config file
+docker exec -it ${c[8]} bash -c 'scp root@192.168.0.86:/root/docker/config.xml /root/'
+
+sleep 25
+
+#creating job using jenkins CLI
+docker exec -it ${c[8]} bash -c 'java -jar /opt/apache-tomcat-7.0.68/webapps/jenkins/WEB-INF/jenkins-cli.jar -s http://localhost:8080/ create-job  Demo_CI_Main  < /root/config.xml '
+~                    
