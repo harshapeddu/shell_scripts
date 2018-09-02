@@ -1,0 +1,20 @@
+#!/bin/sh
+
+
+x=($(mysql -u root '-pR00t!@#$' -Bse "select count(severity), FROM_UNIXTIME (issue_update_date/1000) AS updated_at_new from sonar.issues where severity='BLOCKER' having updated_at_new =  '2016-10-13 12:04:22.000';"))
+
+#x=$(mysql -u root '-pR00t!@#$' -Bse "SELECT COUNT(severity) FROM sonar.issues WHERE severity = 'BLOCKER';")
+
+
+
+#y=$4
+
+if [ ${x[0]} == 0 ]
+then
+   echo "success"
+   echo "${x[1]}"
+
+else
+   echo "fail"
+   echo "Number of BLOCKER ISSUES are ${x[0]}" >> /root/ajay
+fi
